@@ -7,8 +7,6 @@ fse.ensureDir = promisify(fse.ensureDir);
 var fileName = "newFile.txt";
 var fileContent = "hello world";
 
-var repoDir = "../submodule/newRepo";
-
 var repository;
 var remote;
 
@@ -19,6 +17,7 @@ var signature = nodegit.Signature.create("Foo bar",
 nodegit.Repository.open(path.resolve(__dirname, "../.git"))
   .then(function(repoResult) {
     repository = repoResult;
+    
     return repository.refreshIndex();
   })
   .then(function(index) {
@@ -32,7 +31,7 @@ nodegit.Repository.open(path.resolve(__dirname, "../.git"))
   })
   .then(function(oid) {
     return repository.createCommit("HEAD", signature, signature,
-      "initial commit", oid, []);
+      "commit 111", oid, []);
   })
 
   // Add a new remote

@@ -37,9 +37,6 @@ nodegit.Repository.open(path.resolve(__dirname, "../.git"))
           return index.writeTree();
         });
   })
-  .then(function() {
-    return index.writeTree();
-  })
   .then(function(oidResult) {
     oid = oidResult;
     return nodegit.Reference.nameToId(repo, "HEAD");
