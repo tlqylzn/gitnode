@@ -24,8 +24,6 @@ var oid;
 nodegit.Repository.open(path.resolve(__dirname, "../.git"))
   .then(function(repoResult) {
     repo = repoResult;
-  })
-  .then(function() {
     return repo.refreshIndex();
   })
   .then(function(indexResult) {
