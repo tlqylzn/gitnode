@@ -44,8 +44,7 @@ nodegit.Repository.open(path.resolve(__dirname, "../.git"))
 
   // Add a new remote
   .then(function() {
-    return nodegit.Remote.create(repository, "origin",
-      "git@github.com:tlqylzn/gitnode.git")
+    return nodegit.Remote.load(repository, "origin")
     .then(function(remoteResult) {
       remote = remoteResult;
 
@@ -60,7 +59,14 @@ nodegit.Repository.open(path.resolve(__dirname, "../.git"))
   .then(function(){
     // Create the push object for this remote
     return remote.push(
-      ["refs/heads/master:refs/heads/master"]
+      ["refs/heads/master:refs/heads/master"],
+      {
+        callbacks: {
+          credentials: function(url, userName) {
+            return nodegit.Cred.sshKeyFromAgent(userName);
+          }
+        }
+      }
     );
   })
   .done(function() {
