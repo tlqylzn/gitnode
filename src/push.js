@@ -18,7 +18,7 @@ var signature = nodegit.Signature.create("Foo bar",
 nodegit.Repository.open(path.resolve(__dirname, "../.git"))
   .then(function(repoResult) {
     repository = repoResult;
-    
+
     return repository.refreshIndex();
   })
   .then(function(index) {
@@ -49,18 +49,22 @@ nodegit.Repository.open(path.resolve(__dirname, "../.git"))
     .then(function(remoteResult) {
       remote = remoteResult;
 
-      // Create the push object for this remote
-      return remote.push(
-        ["refs/heads/master:refs/heads/master"],
-        {
-          callbacks: {
-            credentials: function(url, userName) {
-              return nodegit.Cred.sshKeyFromAgent(userName);
-            }
+      
+    });
+  })
+  .then(function(){
+    // Create the push object for this remote
+    return remote.push(
+      ["refs/heads/master:refs/heads/master"],
+      {
+        callbacks: {
+          credentials: function(url, userName) {
+            return nodegit.Cred.sshKeyFromAgent(userName);
           }
         }
-      );
-    });
-  }).done(function() {
+      }
+    );
+  })
+  .done(function() {
     console.log("Done!");
   });
