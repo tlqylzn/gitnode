@@ -42,6 +42,7 @@ nodegit.Repository.open(path.resolve(__dirname, "../.git"))
       "commit 111", oid, [parent]);
   })
   .then(function(){
+    console.log(repository);
     return repository.openIndex();
   })
   .then(function(){
