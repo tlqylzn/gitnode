@@ -47,7 +47,7 @@ nodegit.Repository.open(path.resolve(__dirname, "../.git"))
 .then(function() {
   // this file is in a subdirectory and can use a relative path
   // return index.addByPath(path.join(directoryName, fileName));
-  return index.addByPath(path.join(directoryName, fileName));
+  return index.addAll();
 })
 .then(function() {
   // this will write both files to the index
