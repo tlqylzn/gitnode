@@ -45,7 +45,7 @@ nodegit.Repository.open(path.resolve(__dirname, "../.git"))
   // Add a new remote
   .then(function() {
     return nodegit.Remote.create(repository, "origin",
-      "https://github.com/tlqylzn/gitnode.git")
+      "git@github.com:tlqylzn/gitnode.git")
     .then(function(remoteResult) {
       remote = remoteResult;
 
