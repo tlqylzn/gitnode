@@ -32,10 +32,6 @@ nodegit.Repository.open(path.resolve(__dirname, "../.git"))
     return index.addAll();
   })
   .then(function() {
-    // this will write both files to the index
-    return index.write();
-  })
-  .then(function() {
     return index.writeTree();
   })
   .then(function(oidResult) {
