@@ -9,6 +9,7 @@ var fileContent = "hello world";
 
 var repository;
 var remote;
+var oid;
 
 var signature = nodegit.Signature.create("Foo bar",
   "foo@bar.com", 123456789, 60);
@@ -29,9 +30,16 @@ nodegit.Repository.open(path.resolve(__dirname, "../.git"))
         return index.writeTree();
       });
   })
-  .then(function(oid) {
+  .then(function(oidResult) {
+    oid = oidResult;
+    return nodegit.Reference.nameToId(repository, "HEAD");
+  })
+  .then(function(head) {
+    return repository.getCommit(head);
+  })
+  .then(function(parent) {
     return repository.createCommit("HEAD", signature, signature,
-      "commit 111", oid, []);
+      "commit 111", oid, [parent]);
   })
 
   // Add a new remote
