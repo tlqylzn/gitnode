@@ -60,14 +60,7 @@ nodegit.Repository.open(path.resolve(__dirname, "../.git"))
   .then(function(){
     // Create the push object for this remote
     return remote.push(
-      ["refs/heads/master:refs/heads/master"],
-      {
-        callbacks: {
-          credentials: function(url, userName) {
-            return nodegit.Cred.sshKeyFromAgent(userName);
-          }
-        }
-      }
+      ["refs/heads/master:refs/heads/master"]
     );
   })
   .done(function() {
