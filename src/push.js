@@ -42,33 +42,34 @@ nodegit.Repository.open(path.resolve(__dirname, "../.git"))
       "commit 111", oid, [parent]);
   })
 
-  // Add a new remote
-  .then(function() {
-    return nodegit.Remote.load(repository, "origin")
-    .then(function(remoteResult) {
-      remote = remoteResult;
+  // // Add a new remote
+  // .then(function() {
+  //   return nodegit.Remote.create(repository, "origin",
+  //     "git@github.com:tlqylzn/gitnode.git")
+  //   .then(function(remoteResult) {
+  //     remote = remoteResult;
 
-      remote.setCallbacks({
-        credentials: function(url, userName) {
-          return nodegit.Cred.sshKeyFromAgent(userName);
-        }
-      });
-      return remote.connect(nodegit.Enums.DIRECTION.PUSH);
-    });
-  })
-  .then(function(){
-    // Create the push object for this remote
-    return remote.push(
-      ["refs/heads/master:refs/heads/master"],
-      {
-        callbacks: {
-          credentials: function(url, userName) {
-            return nodegit.Cred.sshKeyFromAgent(userName);
-          }
-        }
-      }
-    );
-  })
+  //     remote.setCallbacks({
+  //       credentials: function(url, userName) {
+  //         return nodegit.Cred.sshKeyFromAgent(userName);
+  //       }
+  //     });
+  //     return remote.connect(nodegit.Enums.DIRECTION.PUSH);
+  //   });
+  // })
+  // .then(function(){
+  //   // Create the push object for this remote
+  //   return remote.push(
+  //     ["refs/heads/master:refs/heads/master"],
+  //     {
+  //       callbacks: {
+  //         credentials: function(url, userName) {
+  //           return nodegit.Cred.sshKeyFromAgent(userName);
+  //         }
+  //       }
+  //     }
+  //   );
+  // })
   .done(function() {
     console.log("Done!");
   });
