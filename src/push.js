@@ -46,7 +46,7 @@ nodegit.Repository.open(path.resolve(__dirname, "../.git"))
     // return repository.openIndex();
   })
   .then(function(){
-    return repo.getRemote("origin");
+    return repository.getRemote("origin");
   })
   .then(function(remoteResult){
     console.log('remote Loaded');
@@ -65,7 +65,7 @@ nodegit.Repository.open(path.resolve(__dirname, "../.git"))
     return remote.push(
               ["refs/heads/master:refs/heads/master"],
               null,
-              repo.defaultSignature(),
+              repository.defaultSignature(),
               "Push to master")  
   })
   .then(function() {
