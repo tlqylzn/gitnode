@@ -50,7 +50,7 @@ nodegit.Repository.open(path.resolve(__dirname, "../.git"))
       remote = remoteResult;
 
       // Create the push object for this remote
-      return nodegit.Remote.push(
+      return remote.push(
         ["refs/heads/master:refs/heads/master"],
         {
           callbacks: {
