@@ -49,7 +49,12 @@ nodegit.Repository.open(path.resolve(__dirname, "../.git"))
     .then(function(remoteResult) {
       remote = remoteResult;
 
-      
+      remote.setCallbacks({
+        credentials: function(url, userName) {
+          return nodegit.Cred.sshKeyFromAgent(userName);
+        }
+      });
+      return remote.connect(nodegit.Enums.DIRECTION.PUSH);
     });
   })
   .then(function(){
