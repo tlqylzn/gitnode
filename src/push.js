@@ -98,7 +98,9 @@ nodegit.Repository.open(path.resolve(__dirname, "../.git"))
   //     }
   //   );
   // })
-  .done(function() {
-    console.log("Done!");
-  })
-  ;
+  // .done(function() {
+  //   console.log("Done!");
+  // })
+  .catch(function(reason) {
+    console.log(reason);
+  });
