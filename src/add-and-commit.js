@@ -29,7 +29,13 @@ nodegit.Repository.open(path.resolve(__dirname, "../.git"))
     index = indexResult;
   })
   .then(function() {
-    return index.addAll();
+    return index.addAll()
+      .then(function() {
+          return index.write();
+        })
+        .then(function() {
+          return index.writeTree();
+        });
   })
   .then(function() {
     return index.writeTree();

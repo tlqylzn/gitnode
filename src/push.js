@@ -15,26 +15,14 @@ var remote;
 var signature = nodegit.Signature.create("Foo bar",
   "foo@bar.com", 123456789, 60);
 
-// Create a new repository in a clean directory, and add our first file
-fse.remove(path.resolve(__dirname, repoDir))
-.then(function() {
-  return fse.ensureDir(path.resolve(__dirname, repoDir));
-})
-.then(function() {
-  return nodegit.Repository.init(path.resolve(__dirname, repoDir), 0);
-})
-.then(function(repo) {
-  repository = repo;
-  return fse.writeFile(path.join(repository.workdir(), fileName), fileContent);
-})
-
 // Load up the repository index and make our initial commit to HEAD
 nodegit.Repository.open(path.resolve(__dirname, "../.git"))
   .then(function(repoResult) {
+    repository = repoResult;
     return repository.refreshIndex();
   })
   .then(function(index) {
-    return index.addByPath(fileName)
+    return index.addAll()
       .then(function() {
         return index.write();
       })
