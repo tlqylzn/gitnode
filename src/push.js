@@ -43,7 +43,7 @@ nodegit.Repository.open(path.resolve(__dirname, "../.git"))
   })
   .then(function(){
     console.log(repository);
-    return repository.openIndex();
+    // return repository.openIndex();
   })
   .then(function(){
     return repo.getRemote("origin");
