@@ -41,7 +41,35 @@ nodegit.Repository.open(path.resolve(__dirname, "../.git"))
     return repository.createCommit("HEAD", signature, signature,
       "commit 111", oid, [parent]);
   })
+  .then(function(){
+    return repository.openIndex();
+  })
+  .then(function(){
+    return repo.getRemote("origin");
+  })
+  .then(function(remoteResult){
+    console.log('remote Loaded');
+      remote = remoteResult;
+      remote.setCallbacks({
+          credentials: function(url, userName) {
+              return nodegit.Cred.sshKeyFromAgent(userName);
+          }
+      });
+      console.log('remote Configured');
+      return remote.connect(nodegit.Enums.DIRECTION.PUSH);
+  })
+  .then(function(){
+    console.log('remote Connected?', remote.connected())
 
+    return remote.push(
+              ["refs/heads/master:refs/heads/master"],
+              null,
+              repo.defaultSignature(),
+              "Push to master")  
+  })
+  .then(function() {
+      console.log('remote Pushed!')
+  })
   // // Add a new remote
   // .then(function() {
   //   return nodegit.Remote.create(repository, "origin",
@@ -70,6 +98,7 @@ nodegit.Repository.open(path.resolve(__dirname, "../.git"))
   //     }
   //   );
   // })
-  .done(function() {
-    console.log("Done!");
+  
+  .catch(function(reason) {
+    console.log(reason);
   });
