@@ -2,9 +2,9 @@ var nodegit = require("nodegit");
 var path = require("path");
 var promisify = require("promisify-node");
 var fse = promisify(require("fs-extra"));
-var fileName = "newfile.txt";
+var fileName = "add-and-commit.js";
 var fileContent = "hello world 111";
-var directoryName = "test";
+var directoryName = "src";
 // ensureDir is an alias to mkdirp, which has the callback with a weird name
 // and in the 3rd position of 4 (the 4th being used for recursion). We have to
 // force promisify it, because promisify-node won't detect it on its
@@ -24,15 +24,15 @@ var oid;
 nodegit.Repository.open(path.resolve(__dirname, "../.git"))
 .then(function(repoResult) {
   repo = repoResult;
-  return fse.ensureDir(path.join(repo.workdir(), directoryName));
+  // return fse.ensureDir(path.join(repo.workdir(), directoryName));
 }).then(function(){
-  return fse.outputFile(path.join(repo.workdir(), fileName), fileContent);
+  // return fse.outputFile(path.join(repo.workdir(), fileName), fileContent);
 })
 .then(function() {
-  return fse.outputFile(
-    path.join(repo.workdir(), directoryName, fileName),
-    fileContent
-  );
+  // return fse.outputFile(
+  //   path.join(repo.workdir(), directoryName, fileName),
+  //   fileContent
+  // );
 })
 .then(function() {
   return repo.refreshIndex();
@@ -42,10 +42,11 @@ nodegit.Repository.open(path.resolve(__dirname, "../.git"))
 })
 .then(function() {
   // this file is in the root of the directory and doesn't need a full path
-  return index.addByPath(fileName);
+  // return index.addByPath(fileName);
 })
 .then(function() {
   // this file is in a subdirectory and can use a relative path
+  // return index.addByPath(path.join(directoryName, fileName));
   return index.addByPath(path.join(directoryName, fileName));
 })
 .then(function() {
