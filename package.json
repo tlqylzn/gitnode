@@ -1,0 +1,23 @@
+{
+  "name": "gitnode",
+  "version": "1.0.0",
+  "description": "Asynchronous native Node bindings",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node src/app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tlqylzn/gitnode.git"
+  },
+  "author": "tim",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tlqylzn/gitnode/issues"
+  },
+  "homepage": "https://github.com/tlqylzn/gitnode#readme",
+  "dependencies": {
+    "nodegit": "^0.16.0"
+  }
+}
